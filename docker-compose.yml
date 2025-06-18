@@ -1,0 +1,19 @@
+version: "3.8"
+
+services:
+  hl7_urine:
+    build: .
+    image: urine-hl7-server
+    container_name: hl7_urine_server
+    restart: always
+    env_file: .env
+    ports:
+      - "5030:5030"  # HostPort:ContainerPort
+    networks:
+      - erpnet
+    extra_hosts:
+      - "host.docker.internal:host-gateway"  # for Docker-to-host access on Linux
+
+networks:
+  erpnet:
+    driver: bridge
